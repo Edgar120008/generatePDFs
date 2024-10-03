@@ -44,7 +44,7 @@ app.get('/generate-pdf', (req, res) => {
         }
     ];
 
-    const imagePath = './icono.jpg';
+    const imagePath = './assets/icono.jpg';
     const image = fs.readFileSync(imagePath);
     const doc = new jsPDF();
     const logo = image.toString('base64'); // Aquí debes poner la imagen en formato base64
@@ -172,7 +172,6 @@ app.get('/generate-pdf', (req, res) => {
     doc.setLineWidth(1);
     doc.setDrawColor('#5e5e5e');
     doc.line(5, 150, 205, 150);
-
     
     doc.save('output2.pdf');
     res.send('PDF generado');
