@@ -31,6 +31,21 @@ app.get('/generate-pdf', (req, res) => {
     const importe = [
         {
             concepto: "consumo",
+            mes: 12.10,
+            vencido: 3.50
+        },
+        {
+            concepto: "drenaje",
+            mes: 658.00,
+            vencido: 32.00
+        },
+        {
+            concepto: "cuota fija",
+            mes: 234.00,
+            vencido: 43.00
+        },
+        {
+            concepto: "consumo",
             mes: 12.00,
             vencido: 3.00
         },
@@ -43,14 +58,46 @@ app.get('/generate-pdf', (req, res) => {
             concepto: "cuota fija",
             mes: 234.00,
             vencido: 43.00
+        },
+        {
+            concepto: "consumo",
+            mes: 12.00,
+            vencido: 3.00
+        },
+        {
+            concepto: "drenaje",
+            mes: 658.00,
+            vencido: 32.00
+        },
+        {
+            concepto: "cuota fija",
+            mes: 234.00,
+            vencido: 43.00
+        },
+        {
+            concepto: "cuota fija",
+            mes: 234.00,
+            vencido: 43.00
         }
     ];
 
     const imagePath = './assets/icono.jpg';
     const image = fs.readFileSync(imagePath);
-    const doc = new jsPDF();
-    const logo = image.toString('base64'); // Aquí debes poner la imagen en formato base64
+    const logo = image.toString('base64');
 
+    const imagePathBBVA = './assets/BBVA.png';
+    const imageBBVA = fs.readFileSync(imagePathBBVA);
+    const logoBBVA = imageBBVA.toString('base64');
+
+    const imagePathHSBC = './assets/HSBC.jpg';
+    const imageHSBC = fs.readFileSync(imagePathHSBC);
+    const logoHSBC = imageHSBC.toString('base64');
+
+    const imagePathSAPSY = './assets/sapsy_logo2.webp';
+    const imageSAPSY = fs.readFileSync(imagePathSAPSY);
+    const logoSAPSY = imageSAPSY.toString('base64');
+    
+    const doc = new jsPDF();
     // console.log(ordenes.length);
 
 
@@ -228,15 +275,6 @@ app.get('/generate-pdf', (req, res) => {
     doc.setFont("Helvetica", "");
     doc.text('Meses vencidos:', 40, 260);
     doc.setFontSize(13);
-    // doc.setFont("Helvetica", "");
-    // doc.text('INMEDIATO', 150, 253);
-
-    // doc.setFontSize(13);
-    // doc.setFont("Helvetica", "");
-    // doc.text('Total a pagar: ' + '$' + parseFloat(total), 90, 270);
-    // doc.setFontSize(13);
-    // doc.setFont("Helvetica", "");
-    // doc.text('INMEDIATO', 150, 253);
 
     for(let i = 0; i < importe.length; i++){
         
@@ -468,17 +506,25 @@ app.get('/generate-pdf', (req, res) => {
     doc.setFont("Helvetica", "");
     doc.text('Meses vencidos:', 40, 260);
     doc.setFontSize(13);
-    // doc.setFont("Helvetica", "");
-    // doc.text('INMEDIATO', 150, 253);
 
     doc.setFontSize(13);
     doc.setFont("Helvetica", "");
-    doc.text('Total a pagar: ' + '$' + parseFloat(total), 90, 270);
-    // doc.setFontSize(13);
-    // doc.setFont("Helvetica", "");
-    // doc.text('INMEDIATO', 150, 253);
+    doc.text('Total a pagar: ' + '$' + parseFloat(total), 150, 260);
+
+    doc.setLineWidth(1);
+    doc.setDrawColor('#5e5e5e');
+    doc.line(5, 264, 205, 264);
+
+    doc.addImage(logoBBVA, 'PNG', 30, 267, 20, 10);
+    doc.setFontSize(13);
+    doc.setFont("Helvetica", "");
+    doc.text('Convenio CIE:', 50, 270);
+    // doc.setFontSize(13);    
+
+    doc.addImage(logoHSBC, 'PNG', 150, 265, 30, 20);
+ 
     
-    doc.save('output2.pdf');
+    doc.save('./templates/output2.pdf');
     res.send('PDF generado');
 });
 
