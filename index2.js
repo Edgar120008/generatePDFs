@@ -515,13 +515,30 @@ app.get('/generate-pdf', (req, res) => {
     doc.setDrawColor('#5e5e5e');
     doc.line(5, 264, 205, 264);
 
-    doc.addImage(logoBBVA, 'PNG', 30, 267, 20, 10);
+    doc.addImage(logoBBVA, 'PNG', 5, 267, 20, 10);
     doc.setFontSize(13);
     doc.setFont("Helvetica", "");
-    doc.text('Convenio CIE:', 50, 270);
+    doc.text('Convenio CIE: 2225646', 27, 270);
+    doc.setFontSize(13);
+    doc.setFont("Helvetica", "");
+    doc.text('Referencia: 00002812488241795286', 27, 280);
     // doc.setFontSize(13);    
 
-    doc.addImage(logoHSBC, 'PNG', 150, 265, 30, 20);
+    doc.addImage(logoHSBC, 'PNG', 105, 265, 25, 20);
+    doc.setFontSize(13);
+    doc.setFont("Helvetica", "");
+    doc.text('Servicio: 7317', 127, 270);
+    doc.setFontSize(13);
+    doc.setFont("Helvetica", "");
+    doc.text('Clave para SPEI:021180550300073173', 127, 275);
+    doc.setFontSize(12);
+    doc.setFont("Helvetica", "");
+    doc.text('Concepto de pago:00002812488238075259', 127, 280);
+
+    doc.addImage(logo, 'PNG', 50, 285, 10, 10);
+    doc.setFontSize(13);
+    doc.setFont("Helvetica", "");
+    doc.text('Sistema de Agua y Saneamiento Yautepec, Morelos ® 2024', 60, 292);
  
     
     doc.save('./templates/output2.pdf');
